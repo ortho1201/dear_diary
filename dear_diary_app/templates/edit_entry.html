@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Edit Entry | Dear Diary{% endblock %}
+
+{% block content %}
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <h3>Edit your entry ✏️</h3>
+    <span style="font-style:italic;font-size:0.9em;">
+      {{ now.strftime('%d %b %Y | %A | %I:%M %p') }}
+    </span>
+  </div>
+
+  <form method="POST">
+    <textarea name="diary_entry" rows="12"
+      style="width:100%;background:#fffaf1;border:1px solid #d2c6b2;border-radius:8px;padding:12px;"
+      required>{{ entry.body }}</textarea><br><br>
+
+    <label><input type="checkbox" name="is_public" {% if entry.is_public %}checked{% endif %}>
+      👁️ Visible to friends</label><br><br>
+
+    <button type="submit">Update</button>
+    <button type="submit" name="delete" value="yes" style="background:#b33;margin-left:10px;">Delete</button>
+  </form>
+{% endblock %}

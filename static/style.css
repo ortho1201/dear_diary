@@ -1,0 +1,24 @@
+body {
+  padding: 2rem;
+  background-color: #fefce8aa;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  background-size: cover;
+}
+
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #333;
+}
+
+textarea {
+  width: 100%;
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  background: #ffffffcc;
+  border: 2px solid #ccc;
+  padding: 10px;
+  border-radius: 10px;
+}

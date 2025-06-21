@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Write Diary{% endblock %}
+
+{% block content %}
+<h2>🖋️ Write a New Entry</h2>
+<form method="POST">
+  <textarea name="body" rows="10" cols="80" placeholder="Write your thoughts here..."></textarea><br>
+  <label>
+    <input type="checkbox" name="is_public"> Make public (share with friends)?
+  </label><br>
+  <button type="submit">Save Entry</button>
+</form>
+{% endblock %}

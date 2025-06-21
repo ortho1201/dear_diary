@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Your Diary Entries{% endblock %}
+
+{% block content %}
+<h2>📚 Your Entries</h2>
+{% for entry in entries %}
+  <div class="entry">
+    <p><strong>{{ entry.timestamp.strftime('%d %B %Y %H:%M') }}</strong></p>
+    <p>{{ entry.body }}</p>
+    <hr>
+  </div>
+{% else %}
+  <p>No diary entries found.</p>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Calendar | Dear Diary{% endblock %}
+
+{% block content %}
+<h2>📅 {{ month }}/{{ year }}</h2>
+
+<!-- search bar -->
+<form method="get" action="{{ url_for('main.calendar_view') }}" style="text-align:center;margin-bottom:18px;">
+  <input type="hidden" name="y" value="{{ year }}">
+  <input type="hidden" name="m" value="{{ month }}">
+  <input type="text" name="q" value="{{ search }}" placeholder="Search this month's entries..."
+         style="padding:6px 10px;width:60%;border:1px solid #999;border-radius:6px;">
+  <button style="padding:6px 12px;">Search</button>
+</form>
+
+<!-- month grid -->
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;max-width:420px;margin:0 auto;">
+  {% for d in range(1, days+1) %}
+    {% if d in marked %}
+      <div style="background:#ffe9b5;border:1px solid #c4a46b;padding:12px;text-align:center;font-weight:bold;">
+        {{ d }}
+      </div>
+    {% else %}
+      <div style="background:#fbf6e7;border:1px solid #d9c8a6;padding:12px;text-align:center;color:#aaa;">
+        {{ d }}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<hr style="margin:28px 0;" />
+
+<!-- list view -->
+{% for dt, entries in calendar_entries.items()|sort(reverse=True) %}
+  <div class="entry">
+    <strong>{{ dt.strftime('%A, %d %B %Y') }}</strong>
+    {% for e in entries %}
+      <p style="margin:6px 0;">{{ e.body }}</p>
+    {% endfor %}
+  </div>
+{% else %}
+  {% if not calendar_entries %}
+    <p style="text-align:center;color:#777;">No diary entry found for this month.</p>
+  {% endif %}
+{% endfor %}
+{% endblock %}

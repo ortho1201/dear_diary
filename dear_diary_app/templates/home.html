@@ -1,0 +1,70 @@
+<!-- dear_diary_app/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Dear Diary{% endblock %}</title>
+
+  <!-- Hand-written & script fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Caveat&display=swap" rel="stylesheet">
+
+  <!-- Custom stylesheet (optional) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  <style>
+    /* Vintage paper look (fallback if style.css missing) */
+    body{
+      font-family:'Handlee',cursive;
+      background:url('{{ url_for("static", filename="images/paper-1920x1080.png") }}') no-repeat center center fixed;
+      background-size:cover;
+      color:#2e2e2e;
+      padding:2rem;
+    }
+    nav{text-align:center;margin-bottom:1.5rem;}
+    nav a{margin:0 12px;text-decoration:none;font-weight:bold;color:#5a3e36;}
+    nav a:hover{text-decoration:underline;}
+    .flashes{list-style:none;padding:0;margin:0 0 1rem;text-align:center;}
+    .flashes li{color:red;}
+  </style>
+</head>
+<body>
+
+  <!-- Heading -->
+  <h1 style="text-align:center; font-family:'Caveat',cursive; font-size:3rem;">📖 Dear Diary</h1>
+
+  <!-- Navigation -->
+  <nav>
+    {% if current_user.is_authenticated %}
+      <a href="{{ url_for('main.write') }}">Write</a>
+      <a href="{{ url_for('main.entries') }}">Entries</a>
+      <a href="{{ url_for('main.friends') }}">Friends</a>
+      <a href="{{ url_for('main.calendar_view') }}">Calendar</a>
+      <a href="{{ url_for('main.logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('main.login') }}">Login</a>
+      <a href="{{ url_for('main.signup') }}">Signup</a>
+    {% endif %}
+  </nav>
+  <hr>
+
+  <!-- Flash messages -->
+  {% with msgs=get_flashed_messages(with_categories=true) %}
+    {% if msgs %}
+      <ul class="flashes">
+        {% for cat,msg in msgs %}
+          <li class="{{ cat }}">{{ msg }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Page-specific content -->
+  {% block content %}{% endblock %}
+
+  <!-- Footer -->
+  <footer style="text-align:center; font-family:'Caveat',cursive; font-size:1.2rem; color:#3b3b3b; padding:1rem 0;">
+    ✍️ Created with ❤️ by <strong>Swarnab</strong>
+  </footer>
+
+</body>
+</html>

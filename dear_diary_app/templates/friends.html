@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Your Friends{% endblock %}
+
+{% block content %}
+<h2>👫 Your Friends</h2>
+<ul>
+  {% for friend in friends %}
+    <li>{{ friend.username }}</li>
+  {% else %}
+    <li>You have no friends added yet.</li>
+  {% endfor %}
+</ul>
+<a href="{{ url_for('main.add_friend') }}">➕ Add a new friend</a>
+{% endblock %}
